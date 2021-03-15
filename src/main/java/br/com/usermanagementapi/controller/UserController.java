@@ -7,10 +7,11 @@ import br.com.usermanagementapi.model.request.UserRequest;
 import br.com.usermanagementapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,10 +49,16 @@ public class UserController {
                 .orElseGet(() -> notFound().build());
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<UserResponse> updateUser(@PathVariable("id") Long userId, @RequestBody UserRequest userToUpdate){
+    @PutMapping("/{id}")
+    public ResponseEntity<UserResponse> updateUser(@PathVariable("id") Long userId, @RequestBody UserRequest userToUpdate) {
         User userToSave = mapper.toEntity(userId, userToUpdate);
-        UserResponse savedUser = mapper.toDTO(userService.saveUser(userToSave));
-        return ResponseEntity.ok(savedUser);
+        UserResponse updatedUser = mapper.toDTO(userService.updateUser(userId, userToSave));
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable("id") Long userId) {
+        userService.deleteUser(userId);
+        return ResponseEntity.noContent().build();
     }
 }
