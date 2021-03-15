@@ -1,4 +1,4 @@
-package br.com.usermanagementapi.model;
+package br.com.usermanagementapi.model.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,8 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class User {
-    private long id;
+public class UserRequest {
+
     private String name;
-    private int age;
+
+    private Integer age;
 }

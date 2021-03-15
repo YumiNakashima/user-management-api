@@ -1,4 +1,4 @@
-package br.com.usermanagementapi.dto;
+package br.com.usermanagementapi.model.reponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UserDTO {
+public class UserResponse {
 
     private Long id;
 
