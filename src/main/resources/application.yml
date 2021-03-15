@@ -16,3 +16,7 @@ spring:
       properties:
         hibernate:
           format-sql: true
+
+api:
+  title: User management API
+  version: 1.0

@@ -5,6 +5,7 @@ import br.com.usermanagementapi.mapper.UserMapper;
 import br.com.usermanagementapi.model.reponse.UserResponse;
 import br.com.usermanagementapi.model.request.UserRequest;
 import br.com.usermanagementapi.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,6 +33,7 @@ public class UserController {
 
     private final UserMapper mapper;
 
+    @ApiOperation(value = "Create user")
     @PostMapping
     public ResponseEntity<UserResponse> postUser(@RequestBody UserRequest newUser) {
         User userToSave = mapper.toEntity(newUser);
@@ -39,6 +41,7 @@ public class UserController {
         return ResponseEntity.created(URI.create("/" + savedUser.getId())).body(savedUser);
     }
 
+    @ApiOperation(value = "Find user by id")
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getUser(@PathVariable("id") Long userId) {
         Optional<User> userById = userService.findUserById(userId);
@@ -49,6 +52,7 @@ public class UserController {
                 .orElseGet(() -> notFound().build());
     }
 
+    @ApiOperation(value = "Update user by id")
     @PutMapping("/{id}")
     public ResponseEntity<UserResponse> updateUser(@PathVariable("id") Long userId, @RequestBody UserRequest userToUpdate) {
         User userToSave = mapper.toEntity(userId, userToUpdate);
@@ -56,6 +60,7 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
     }
 
+    @ApiOperation(value = "Delete user by id")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable("id") Long userId) {
         userService.deleteUser(userId);
