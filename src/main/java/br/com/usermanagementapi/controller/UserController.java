@@ -27,6 +27,6 @@ public class UserController {
     public ResponseEntity<UserDTO> postUser(@RequestBody UserDTO newUser) {
         User userToSave = mapper.toEntity(newUser);
         UserDTO savedUser = mapper.toDTO(userService.saveUser(userToSave));
-        return ResponseEntity.created(URI.create("/"+savedUser.getId())).body(savedUser);
+        return ResponseEntity.created(URI.create("/" + savedUser.getId())).body(savedUser);
     }
 }
